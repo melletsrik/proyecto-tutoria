@@ -1,0 +1,27 @@
+.header {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: white;
+}
+
+.logo {
+  grid-column: 3 / span 3;
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  margin-left: 60%;
+  height: 65px;
+  width: auto;
+}
+
+.carrera {
+  grid-column: 5 / span 4;
+  text-align: center;
+}
+
+.carrera p {
+  font-size: 1rem;
+  font-weight: bold;
+}
