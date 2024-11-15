@@ -1,0 +1,37 @@
+.calificar-tutorias-general {
+  padding: 20px;
+}
+table {
+   width: 100%;
+   border-collapse: collapse;
+}
+table th,
+table td {
+   padding: 10px;
+   text-align: left;
+   border: 1px solid #ddd;
+}
+button {
+   margin-top: 10px;
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+button:hover {
+   background-color: #45a049;
+}
+label {
+   margin-right: 10px;
+}
+.no-registros {
+   text-transform: uppercase;
+   font-weight: bold;
+   color: #ff0000;
+   text-align: center;
+}
+.botones {
+   margin-top: 20px;
+   text-align: center;
+}

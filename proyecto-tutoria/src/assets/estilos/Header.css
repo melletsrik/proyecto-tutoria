@@ -1,36 +1,41 @@
 .header {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  background-color: white;
+   display: flex;
+   flex-direction: column; /* Logo arriba y carreras debajo */
+   align-items: center;
+   background-color: white;
+   padding: 10px 20px;
 }
 
 .logo {
-  grid-column: 3 / span 3;
-  display: flex;
-  justify-content: center;
+   display: flex;
+   margin-bottom: 10px; /* Separación entre logo y carreras */
 }
 
 .logo img {
-  margin-left: 60%;
-  height: 65px;
-  width: auto;
+   height: 65px;
+   margin-left: 20%;
+   width: auto;
 }
+
 .carrera {
-  grid-column: 5 / span 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%; /* Ocupar todo el ancho */
 }
 
 .carrera p {
-  font-size: 1rem;
-  font-weight: bold;
+   flex: 1; /* Ocupa el espacio entre las flechas */
+   font-size: 1rem;
+   font-weight: bold;
+   text-align: center;
+   margin: 0 20px; /* Espaciado entre el texto y las flechas */
 }
 
 .flecha {
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-
+   background-color: transparent;
+   border: none;
+   font-size: 20px;
+   cursor: pointer;
+   color: black;
 }
