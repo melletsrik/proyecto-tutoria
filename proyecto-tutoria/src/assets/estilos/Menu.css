@@ -1,10 +1,9 @@
 .menu-container {
   margin: 0px;
 }
-
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Siempre dos columnas */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 0.5rem;
   background-color: #e3e4e4;

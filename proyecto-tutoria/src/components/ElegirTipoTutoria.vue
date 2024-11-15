@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import NavBar from './NavBar.vue';
 const p_cTipoTutoria = ref(null); // p_ para parámetro, c para cadena
 const p_router = useRouter(); // p_ para parámetro
 // Función para manejar la selección y redirigir
@@ -15,6 +15,7 @@ const f_seleccionarTutoria = () => {
 </script>
 
 <template>
+   <NavBar />
    <div class="elegir-tipo-tutoria">
       <h2>Elige el tipo de tutoría a calificar</h2>
       <div>
