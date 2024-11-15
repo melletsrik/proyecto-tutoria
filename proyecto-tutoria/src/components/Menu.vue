@@ -19,11 +19,12 @@ const verificarSesion = () => {
     router.push('/login');
   }
 };
-
 onMounted(() => {
   verificarSesion();
 });
-
+const irATipoTutoria = () => {
+  router.push('/elegir-tipo-tutoria');
+};
 </script>
 
 
@@ -40,7 +41,7 @@ onMounted(() => {
       <MenuCard icon="credit_card" text="Deudas Temporales" />
       <MenuCard icon="star" text="Notas" />
       <MenuCard icon="edit" text="Exámenes" />
-      <MenuCard icon="forum" text="Tutoria" />
+      <MenuCard icon="forum" text="Tutoria" @click="irATipoTutoria" />
     </div> 
     <Footer />
   </div>
