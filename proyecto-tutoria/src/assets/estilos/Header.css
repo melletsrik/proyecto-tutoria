@@ -15,13 +15,22 @@
   height: 65px;
   width: auto;
 }
-
 .carrera {
   grid-column: 5 / span 4;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carrera p {
   font-size: 1rem;
   font-weight: bold;
+}
+
+.flecha {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+
 }

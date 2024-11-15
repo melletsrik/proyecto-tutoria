@@ -40,6 +40,7 @@ onMounted(() => {
       <MenuCard icon="credit_card" text="Deudas Temporales" />
       <MenuCard icon="star" text="Notas" />
       <MenuCard icon="edit" text="Exámenes" />
+      <MenuCard icon="forum" text="Tutoria" />
     </div> 
     <Footer />
   </div>
