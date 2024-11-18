@@ -3,6 +3,7 @@ import Login from '@/components/Login.vue';
 import Menu from '@/components/Menu.vue';
 import ElegirTipoTutoria from '@/components/ElegirTipoTutoria.vue';
 import CalificarTutoriasGeneral from '@/components/CalificarTutoriasGeneral.vue';
+import TutoriaPersonal from '@/components/TutoriaPersonal.vue'; // Importa el componente para Tutoría Personal
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,11 @@ const router = createRouter({
 			component: CalificarTutoriasGeneral, // O la vista correspondiente según el tipo
 			props: (route) => ({ tipo: route.query.tipo }), // Pasar el tipo como parámetro
 		 },
+		 {
+			path: '/tutoria-personal', // Ruta para Tutoría Personal
+			name: 'tutoriaPersonal',
+			component: TutoriaPersonal, // Asegúrate de que este componente exista
+		},
 	]
 })
 
