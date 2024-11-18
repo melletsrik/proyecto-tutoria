@@ -1,55 +1,60 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import NavBar from './NavBar.vue';
+import '@/assets/estilos/ElegirTipoTutoria.css'; // Importa los estilos desde assets/estilos
+
 const p_cTipoTutoria = ref(null); // p_ para parámetro, c para cadena
 const p_router = useRouter(); // p_ para parámetro
+
 // Función para manejar la selección y redirigir
-const f_seleccionarTutoria = () => {
-  if (!p_cTipoTutoria.value) {
-    alert("Por favor, elige un tipo de tutoría.");
-    return;
+const f_seleccionarTutoria = (tipo) => {
+  p_cTipoTutoria.value = tipo;
+
+  // Redirección según el tipo de tutoría seleccionada
+  if (tipo === 'personal') {
+    p_router.push({ name: 'tutoriaPersonal' }); // Cambiar al nombre correcto de la ruta
+  } else {
+    // Redirección genérica para otros tipos
+    p_router.push({ name: 'calificarTutoria', query: { tipo } });
   }
-  p_router.push({ name: 'calificarTutoria', query: { tipo: p_cTipoTutoria.value } });
 };
 </script>
 
 <template>
-   <NavBar />
-   <div class="elegir-tipo-tutoria">
-      <h2>Elige el tipo de tutoría a calificar</h2>
-      <div>
-         <label>
-         <input type="radio" v-model="p_cTipoTutoria" value="general" /> Tutoría General
-         </label>
-      </div>
-      <div>
-         <label>
-         <input type="radio" v-model="p_cTipoTutoria" value="personal" /> Tutoría Personal
-         </label>
-      </div>
-      <div>
-         <label>
-         <input type="radio" v-model="p_cTipoTutoria" value="particular" /> Tutoría Particular
-         </label>
-      </div>
-      <button @click="f_seleccionarTutoria">Seleccionar</button>
-   </div>
-</template>
+  <div class="elegir-tipo-tutoria">
+    <!-- Logo en la parte superior -->
+    <img class="logo" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
 
-<style scoped>
-.elegir-tipo-tutoria {
-  padding: 20px;
-}
-button {
-   margin-top: 10px;
-   padding: 10px;
-   background-color: #4CAF50;
-   color: white;
-   border: none;
-   cursor: pointer;
-}
-button:hover {
-  background-color: #45a049;
-}
-</style>
+    <h2>Elige el tipo de tutoría a calificar</h2>
+    <div class="botones-tutoria">
+      <button
+        class="boton"
+        :class="{ activo: p_cTipoTutoria === 'general' }"
+        @click="f_seleccionarTutoria('general')"
+      >
+        Tutoría General
+      </button>
+      <button
+        class="boton"
+        :class="{ activo: p_cTipoTutoria === 'personal' }"
+        @click="f_seleccionarTutoria('personal')"
+      >
+        Tutoría Personal
+      </button>
+      <button
+        class="boton"
+        :class="{ activo: p_cTipoTutoria === 'particular' }"
+        @click="f_seleccionarTutoria('particular')"
+      >
+        Tutoría Particular
+      </button>
+    </div>
+    
+    <button class="regresar" @click="f_regresar">
+  <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
+  Volver
+</button>
+
+
+  </div>
+</template>

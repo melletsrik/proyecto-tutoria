@@ -1,0 +1,55 @@
+.elegir-tipo-tutoria { 
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .logo {
+    width: 220px; /* Ajusta el tamaño del logo */
+    margin-bottom: 20px; /* Añade espacio debajo del logo */
+  }
+  
+  .botones-tutoria {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en filas */
+    gap: 10px; /* Espaciado entre los botones */
+    justify-content: flex-start; /* Alinea todos los botones al inicio (izquierda) */
+  }
+  
+  .boton {
+    padding: 10px 20px;
+    border: 1px solid #4CAF50;
+    background-color: white;
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+    flex: 0 0 calc(50% - 10px); /* Cada botón ocupa el 50% menos el espacio del gap */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+  }
+  
+  .boton:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .activo {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  @media (max-width: 500px) {
+    .botones-tutoria {
+      justify-content: center; /* Centra los botones en pantallas pequeñas */
+    }
+  
+    .boton {
+      flex: 0 0 100%; /* En pantallas pequeñas, todos los botones ocupan el 100% del ancho */
+    }
+  }
+  .icon {
+    width: 20px; /* Ajusta el tamaño del ícono */
+    height: 20px;
+    margin-right: 8px; /* Espaciado entre el ícono y el texto */
+    color:red;
+  }
