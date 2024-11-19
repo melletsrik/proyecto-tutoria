@@ -6,8 +6,9 @@ const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
 // Inicializa las tutorías con la propiedad calificada
 const a_tutoriasPendientes = ref([
-   { CIDTUTO: 1, CNOMDOC: 'Manuel Zuñiga', DFECHA: '2024-11-12 10:00 AM', calificada: false },
-   { CIDTUTO: 2, CNOMDOC: 'Villaverde Yumbato Norbel Antonio', DFECHA: '2024-11-13 02:00 PM', calificada: false },
+   { CIDTUTO: 1, CNOMDOC: 'Manuel Zuñiga', DFECHA: '2024-11-18 10:00 AM', calificada: false },
+   { CIDTUTO: 2, CNOMDOC: 'Villaverde Yumbato Norbel Antonio', DFECHA: '2024-11-19 02:00 PM', calificada: false },
+   { CIDTUTO: 3, CNOMDOC: 'Karina Rosas Paredes', DFECHA: '2024-11-19 02:00 PM', calificada: false },
 ]);
 // Función para calificar la tutoría seleccionada
 const f_calificarTutoria = () => {
