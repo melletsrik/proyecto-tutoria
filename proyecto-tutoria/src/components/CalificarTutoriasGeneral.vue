@@ -29,7 +29,7 @@ const f_salir = () => {
    <NavBar />
    <div class="calificar-tutorias-general">
       <div class="titulo-barra">
-         <h2>CALIFICA LA TUTORÍA</h2>
+         <h2>CALIFICAR LA TUTORÍA</h2>
       </div>
       <div class='body'>
          <p v-if="!a_tutoriasPendientes.some(t => !t.calificada)" class="no-registros">
