@@ -6,8 +6,8 @@ const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
 // Inicializa las tutorías con la propiedad calificada
 const a_tutoriasPendientes = ref([
-   { CIDTUTO: 1, CNOMDOC: 'Manuel Mariano Zuñiga Carnero', DFECHA: '2024-11-12 10:00 AM', calificada: false },
-   { CIDTUTO: 2, CNOMDOC: 'Villaverde Yumbato Norbel Antonio', DFECHA: '2024-11-13 02:00 PM', calificada: false },
+   { CIDTUTO: 1, CNOMDOC: 'ZUÑIGA CARNERO MANUEL MARIANO ', DFECHA: '2024-11-12 10:00', calificada: false },
+   { CIDTUTO: 2, CNOMDOC: 'VILLAVERDE YUMBATO NORBEL ANTONIO', DFECHA: '2024-11-13 22:00', calificada: false },
 ]);
 // Función para calificar la tutoría seleccionada
 const f_calificarTutoria = () => {
@@ -24,6 +24,9 @@ const f_calificarTutoria = () => {
 const f_salir = () => {
   alert("Has salido del sistema.");
 };
+const f_recortarNombre = (cNombre) => {
+  return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
+};
 </script>
 <template>
    <NavBar />
@@ -33,20 +36,20 @@ const f_salir = () => {
       </div>
       <div class='body'>
          <p v-if="!a_tutoriasPendientes.some(t => !t.calificada)" class="no-registros">
-            NO HAY TUTORÍAS PENDIENTES DE CALIFICACIÓN.
+            NO HAY TUTORÍAS PENDIENTES POR CALIFICAR.
          </p>
          <!-- Tabla de tutorías -->
          <table v-else>
             <thead>
             <tr>
-               <th>Docente</th>
-               <th>Fecha y Hora</th>
-               <th></th>
+               <th class="col-nombre">DOCENTE</th>
+               <th class="col-fecha">FECHA Y HORA</th>
+               <th class="col-seleccion"></th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="p_tutoria in a_tutoriasPendientes.filter(t => !t.calificada)" :key="p_tutoria.CIDTUTO">
-               <td>{{ p_tutoria.CNOMDOC }}</td>
+               <td>{{ f_recortarNombre(p_tutoria.CNOMDOC) }}</td>
                <td>{{ p_tutoria.DFECHA }}</td>
                <td>
                   <input

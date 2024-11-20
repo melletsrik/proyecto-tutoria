@@ -16,11 +16,19 @@ table th {
    background-color: black;
    color: white;
 }
-
 table td {
    padding: 10px;
    text-align: left;
    border: 1px solid #ddd;
+}
+.col-nombre {
+   width: 40%;
+}
+.col-fecha {
+   width: 30%;
+}
+.col-seleccion {
+   width: 5%;
 }
 label {
    margin-right: 10px;
