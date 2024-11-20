@@ -1,29 +1,24 @@
 .header {
    display: flex;
    flex-direction: column; /* Logo arriba y carreras debajo */
-   align-items: center;
    background-color: white;
    padding: 10px 20px;
 }
-
 .logo {
    display: flex;
+   align-items: center;
    margin-bottom: 10px; /* Separación entre logo y carreras */
 }
-
 .logo img {
    height: 65px;
-   margin-left: 20%;
    width: auto;
 }
-
 .carrera {
    display: flex;
    justify-content: space-between;
    align-items: center;
    width: 100%; /* Ocupar todo el ancho */
 }
-
 .carrera p {
    flex: 1; /* Ocupa el espacio entre las flechas */
    font-size: 1rem;
@@ -31,11 +26,16 @@
    text-align: center;
    margin: 0 20px; /* Espaciado entre el texto y las flechas */
 }
-
 .flecha {
    background-color: transparent;
    border: none;
    font-size: 20px;
    cursor: pointer;
    color: black;
+}
+.saludo {
+   display: flex;
+   justify-content: left;
+   align-items:first baseline;
+   width: 100%;
 }

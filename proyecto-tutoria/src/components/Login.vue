@@ -31,29 +31,23 @@ const iniciarSesion = async () => {
    } else {
       pcErrorDni.value = '';
    }
-
    // Hasheamos la clave antes de enviarla
    const lcClave = CryptoJS.SHA512(laData.value.pcClave).toString();
-
    try {
       const loResponse = await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
          ID: 'LOGINE',
          CNRODOC: laData.value.pcNroDni,
          CCLAVE: lcClave // Enviar la contraseña hasheada
       });
-
-      // Revisa si el token es `CTOKEN` o `lcToken` según la respuesta del servidor
+      // Revisa si el token es CTOKEN o lcToken según la respuesta del servidor
       if (loResponse.data && loResponse.data.CTOKEN) {
-         const token = loResponse.data.CTOKEN; // Cambiar a `lcToken` si corresponde
+         const token = loResponse.data.CTOKEN; // Cambiar a lcToken si corresponde
+         const lcNombreCompleto  = loResponse.data.CNOMBRE; // Nombre completo retornado por la API
          sessionStorage.setItem('authToken', token);
-
-         // Guardar tiempo de inicio de sesión
-         const ltTime = Date.now();
-         sessionStorage.setItem('loginTime', ltTime);
-
+         sessionStorage.setItem('nombreUsuario', lcNombreCompleto.split(' ')[2]); // Guardamos solo el primer nombre
+         sessionStorage.setItem('loginTime', Date.now());
          // Redirigir al menú
          router.push('/menu');
-
          // Configurar temporizador de expiración (5 minutos)
          setTimeout(() => {
             f_cerrarSesion();
@@ -69,6 +63,7 @@ const iniciarSesion = async () => {
 
 const f_cerrarSesion = () => {
    sessionStorage.removeItem('authToken');
+   sessionStorage.removeItem('nombreUsuario');
    sessionStorage.removeItem('loginTime');
    router.push('/login');
 };

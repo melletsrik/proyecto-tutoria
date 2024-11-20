@@ -21,7 +21,6 @@
   cursor: pointer;
   background-color: white;
 }
-
 /* Estilo para pantallas más pequeñas (móviles) */
 @media (max-width: 768px) {
   .grid-container {
