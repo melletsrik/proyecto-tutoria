@@ -25,28 +25,28 @@ const f_seleccionarTutoria = (tipo) => {
     <!-- Logo en la parte superior -->
     <img class="logoTipoTutoria" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
 
-    <h2>Elige el tipo de tutoría a calificar</h2>
+    <h2>ELEGIR EL TIPO DE TUTORÍA A CALIFICAR</h2>
     <div class="botones-tutoria">
       <button
         class="boton"
         :class="{ activo: p_cTipoTutoria === 'general' }"
         @click="f_seleccionarTutoria('general')"
       >
-        Tutoría General
+        TUTORÍA GENERAL
       </button>
       <button
         class="boton"
         :class="{ activo: p_cTipoTutoria === 'personal' }"
         @click="f_seleccionarTutoria('personal')"
       >
-        Tutoría Personal
+        TUTORÍA PERSONAL
       </button>
       <button
         class="boton"
         :class="{ activo: p_cTipoTutoria === 'particular' }"
         @click="f_seleccionarTutoria('particular')"
       >
-        Tutoría Particular
+        TUTORÍA PARTICULAR
       </button>
     </div>
     

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import '@/assets/estilos/CalificarTutoriasGeneral.css';
+import NavBar from './Navbar.vue';
 const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
 // Inicializa las tutorías con la propiedad calificada
