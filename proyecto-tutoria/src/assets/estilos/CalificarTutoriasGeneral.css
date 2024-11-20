@@ -1,11 +1,6 @@
-.body{
-   margin: 20px;
-   padding: 10px;
-}
 .titulo-barra {
    background-color: #fccc04;
    padding: 10px 20px;
-   margin-bottom: 20px;
 }
 .titulo-barra h2 {
    text-transform: uppercase;
@@ -17,7 +12,11 @@ table {
    width: 100%;
    border-collapse: collapse;
 }
-table th,
+table th {
+   background-color: black;
+   color: white;
+}
+
 table td {
    padding: 10px;
    text-align: left;
