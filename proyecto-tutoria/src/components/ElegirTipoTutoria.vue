@@ -23,7 +23,7 @@ const f_seleccionarTutoria = (tipo) => {
 <template>
   <div class="elegir-tipo-tutoria">
     <!-- Logo en la parte superior -->
-    <img class="logo" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
+    <img class="logoTipoTutoria" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
 
     <h2>Elige el tipo de tutoría a calificar</h2>
     <div class="botones-tutoria">

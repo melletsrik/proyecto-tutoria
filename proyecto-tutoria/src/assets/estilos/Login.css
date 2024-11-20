@@ -2,6 +2,7 @@
   display: grid;
   place-items: center;
   height: 100vh;
+  padding: 10px;
 }
 
 .login-card {
@@ -12,10 +13,16 @@
   grid-column: 1 / 12;
   max-width: 900px;
   width: 100%;
+  margin: 5px;
 }
 
 .logo {
-  width: 100%;
+  max-width: 400px;
+  width: auto;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h2 {
@@ -71,15 +78,14 @@ h2 {
 }
 
 @media (max-width: 600px) {
-  .login-card {
-      padding: 15px;
-  }
-
   h2 {
       font-size: 20px;
   }
 
   .input-group input {
       font-size: 14px;
+  }
+  .logo {
+    max-width: 250px; /* Ajuste en dispositivos móviles más pequeños */
   }
 }

@@ -78,7 +78,7 @@ const f_cerrarSesion = () => {
   <div class="login-container">
     <div class="login-card">
       <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
-      <h2>Iniciar Sesión</h2>
+      <h2>INICIAR SESIÓN</h2>
       <form @submit.prevent="iniciarSesion">
         <div class="input-group">
           <input 
