@@ -18,6 +18,11 @@ const f_seleccionarTutoria = (tipo) => {
     p_router.push({ name: 'calificarTutoria', query: { tipo } });
   }
 };
+
+// Función para regresar al menú principal
+const f_regresar = () => {
+  p_router.push('/menu'); // Redirige a la ruta /menu
+};
 </script>
 
 <template>
@@ -25,7 +30,6 @@ const f_seleccionarTutoria = (tipo) => {
     <!-- Logo en la parte superior -->
     <img class="logoTipoTutoria" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
 
-    
     <div class="botones-tutoria">
       <button
         class="boton"
@@ -49,12 +53,12 @@ const f_seleccionarTutoria = (tipo) => {
         TUTORÍA PARTICULAR
       </button>
     </div>
-    
+
+    <!-- Botón Volver -->
     <button class="regresar" @click="f_regresar">
-  <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
-  Volver
-</button>
-
-
+      <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
+      Volver
+    </button>
   </div>
 </template>
+
