@@ -10,10 +10,12 @@ const router = useRouter();
 const verificarSesion = () => {
    const token = sessionStorage.getItem('authToken');
    const loginTime = sessionStorage.getItem('loginTime');
+   /*
    if (!token || (Date.now() - loginTime > 5 * 60 * 1000)) {
       alert("La sesión ha expirado. Inicia sesión nuevamente.");
       router.push('/login');
    }
+      */
 };
 onMounted(() => {
    verificarSesion();

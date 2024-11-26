@@ -2,9 +2,21 @@
 import { ref } from 'vue';
 import '@/assets/estilos/CalificarTutoriasGeneral.css';
 import NavBar from './Navbar.vue';
+import axios from 'axios';
+import { onMounted } from 'vue';
+
 const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
 // Inicializa las tutorías con la propiedad calificada
+
+/*
+
+laData = {'ID': 'TUT1060', 'CCODALU': '2016100861', 'CNRODNI': '71721662', 'CTOKEN': 'MAAGLY45F0'}
+lcRespon = requests.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', json=laData)
+laData = json.loads(lcRespon.text)
+print(laData)
+
+*/
 const a_tutoriasPendientes = ref([
    { CIDTUTO: 1, CNOMDOC: 'ZUÑIGA CARNERO MANUEL MARIANO ', DFECHA: '2024-11-12 10:00', calificada: false },
    { CIDTUTO: 2, CNOMDOC: 'VILLAVERDE YUMBATO NORBEL ANTONIO', DFECHA: '2024-11-13 22:00', calificada: false },
@@ -20,6 +32,33 @@ const f_calificarTutoria = () => {
    p_tutorSeleccionado.value = null; // Limpia la selección después de calificar
    alert(`Tutoría calificada con éxito: ${n_calificacion.value} estrellas`);
 };
+
+onMounted( async () => {
+   try {
+      loRespon = await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
+         ID: 'TUT1060',
+         CCODALU: '2022201602',
+         CNRODNI: '71737077',
+         CTOKEN: sessionStorage.getItem('gcToken'),
+      });
+      console.log('LLAMADA API')
+   } catch (error) {
+      console.error('Error de autenticación:', error);
+      alert('NO SE PUDO CONECTAR CON EL SERVIDOR (1)');
+      return ;
+      // OJOFPM
+   }
+   if (loRespon == null) {
+      alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
+      return ;
+      // OJOFPM
+   } else if (loRespon.data.ERROR) {
+      alert(loRespon.data.ERROR);
+      return;
+      // OJOFPM
+   }
+});
+
 // Función para salir
 const f_salir = () => {
   alert("Has salido del sistema.");

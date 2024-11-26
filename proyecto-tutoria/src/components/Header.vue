@@ -1,24 +1,25 @@
 <script setup>
 import '@/assets/estilos/Header.css';
 import { ref, onMounted } from 'vue';
+import { useSessionStore } from '@/store/sessionStore';
+const session = useSessionStore()
 
-const aCarreras = ref([
-   "INGENIERÍA DE SISTEMAS",
-   "CARRERA DE DERECHO",
-   "CENTRO DE IDIOMAS",
-   "CARRERA DE MEDICINA"
-]);
+const aCarreras = ref(JSON.parse(sessionStorage.getItem('gaDatos')));
 const indiceCarrera = ref(0); // Índice para la carrera seleccionada
-const lcarrera = ref(aCarreras.value[indiceCarrera.value]);
+const lcarrera = ref(aCarreras.value[indiceCarrera.value].CNOMUNI);
 const lcSaludo = ref('');
-const lUserName = ref(sessionStorage.getItem('nombreUsuario') || 'Usuario'); // Obtener el nombre del usuario desde sessionStorage
+const lcName = ref(sessionStorage.getItem('gcName') || 'Usuario'); // Obtener el nombre del usuario desde sessionStorage
 
 const cambiarCarrera = (direccion) => {
-   if (direccion === 'izquierda') {
-      indiceCarrera.value = (indiceCarrera.value - 1 + aCarreras.value.length) % aCarreras.value.length;
-   } else if (direccion === 'derecha') {
-      indiceCarrera.value = (indiceCarrera.value + 1) % aCarreras.value.length;
+   //
+   if(aCarreras.length >1){
+      if (direccion === 'izquierda') {
+         indiceCarrera.value = (indiceCarrera.value - 1 + aCarreras.value.length) % aCarreras.value.length;
+      } else if (direccion === 'derecha') {
+         indiceCarrera.value = (indiceCarrera.value + 1) % aCarreras.value.length;
+      }  
    }
+   console.log(lcarrera)
    lcarrera.value = aCarreras.value[indiceCarrera.value];
 };
 
@@ -34,9 +35,12 @@ const f_obtenerSaludo = () => {
 };
 
 onMounted(() => {
+   const lcName = sessionStorage.getItem('gcName')
    lcSaludo.value = f_obtenerSaludo(); // Establece el saludo dependiendo de la hora
-   console.log("Saludo:", lcSaludo.value); // Verificar si el saludo se establece correctamente
-   console.log("Usuario:", lUserName.value); // Verificar el nombre del usuario
+   console.log("Saludo:", `${lcSaludo.value}.${lcName}`); // Verificar si el saludo se establece correctamente
+   console.log("Usuario:", lcName); // Verificar el nombre del usuario
+   const jsonlaDatos = JSON.parse(sessionStorage.getItem('gaDatos'));
+   console.log(jsonlaDatos)
 });
 </script>
 
@@ -51,7 +55,7 @@ onMounted(() => {
          <button @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
       </div>
       <div class="saludo">
-        <p>{{ lcSaludo }}, {{ lUserName }}</p> <!-- Saludo y nombre del usuario -->
+        <p>{{ lcSaludo }}, {{ lcName }}</p> <!-- Saludo y nombre del usuario -->
       </div>
    </header>
 </template>

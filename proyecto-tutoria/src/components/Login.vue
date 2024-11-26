@@ -5,13 +5,16 @@ import '@/assets/estilos/Login.css';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { useSessionStore } from '@/store/sessionStore';
+const session = useSessionStore();
+
 
 const plClave = ref(false);
-const laData = ref({
+const paData = ref({
    pcNroDni: '',
    pcClave: ''
 });
-const pcErrorDni = ref('');
+const pcError = ref('');
 const router = useRouter();
 
 const togglePassword = () => {
@@ -24,49 +27,71 @@ const f_validarDni = (p_pcNroDni) => {
    return dniRegex.test(p_pcNroDni);
 };
 
-const iniciarSesion = async () => {
-   if (!f_validarDni(laData.value.pcNroDni)) {
-      pcErrorDni.value = 'DNI debe tener 8 dígitos numéricos';
+const f_IniciarSesion = async () => {
+   /*
+   if (!f_validarDni(paData.value.pcNroDni)) {
+      pcError.value = 'NÚMERO DE DNI INVÁLIDO';
       return;
    } else {
-      pcErrorDni.value = '';
+      pcError.value = '';
+   }
+   */
+   pcError.value = '';
+   if (!f_validarDni(paData.value.pcNroDni)) {
+      pcError.value = 'NÚMERO DE DNI INVÁLIDO';
+      return;
    }
    // Hasheamos la clave antes de enviarla
-   const lcClave = CryptoJS.SHA512(laData.value.pcClave).toString();
+   let lcClave = CryptoJS.SHA512(paData.value.pcClave).toString();
+   console.log(paData.value.pcNroDni)
+   // Llama al APIREST
+   let loRespon = null;
    try {
-      const loResponse = await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
+      loRespon = await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
          ID: 'LOGINE',
-         CNRODOC: laData.value.pcNroDni,
+         CNRODOC: paData.value.pcNroDni,
          CCLAVE: lcClave // Enviar la contraseña hasheada
       });
-      // Revisa si el token es CTOKEN o lcToken según la respuesta del servidor
-      if (loResponse.data && loResponse.data.CTOKEN) {
-         const token = loResponse.data.CTOKEN; // Cambiar a lcToken si corresponde
-         const lcNombreCompleto  = loResponse.data.CNOMBRE; // Nombre completo retornado por la API
-         sessionStorage.setItem('authToken', token);
-         sessionStorage.setItem('nombreUsuario', lcNombreCompleto.split(' ')[2]); // Guardamos solo el primer nombre
-         sessionStorage.setItem('loginTime', Date.now());
-         // Redirigir al menú
-         router.push('/menu');
-         // Configurar temporizador de expiración (5 minutos)
-         setTimeout(() => {
-            f_cerrarSesion();
-         }, 5 * 60 * 1000);
-      } else {
-         alert('Usuario o contraseña incorrectos');
-      }
+      console.log('LLAMADA API')
    } catch (error) {
       console.error('Error de autenticación:', error);
-      alert('Error al conectar con el servidor');
+      alert('NO SE PUDO CONECTAR CON EL SERVIDOR (1)');
+      return ;
+      // OJOFPM
    }
+   // Verifica respuesta
+   if (loRespon == null) {
+      alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
+      return ;
+      // OJOFPM
+   } else if (loRespon.data.ERROR) {
+      alert(loRespon.data.ERROR);
+      return;
+      // OJOFPM
+   }
+   console.log(loRespon.data);
+   console.log('respuesta API')
+   // session.setUsuario(loRespon.data);
+   // console.log(loRespon.value);
+   // session.setNombre(loRespon.data.CNAME);
+   // sessionStorage.setItem('app_user', loRespon.data);
+   // sessionStorage.setItem('nombre', loRespon.data.CNAME);
+   sessionStorage.setItem('gcToken', loRespon.data.CTOKEN);
+   sessionStorage.setItem('gcNombre', loRespon.data.CNOMBRE); // Guardamos solo el primer nombre
+   sessionStorage.setItem('gcName', loRespon.data.CNAME); // Guardamos solo el primer nombre
+   sessionStorage.setItem('gaDatos', JSON.stringify(loRespon.data.DATOS));    // Guardamos solo el primer nombre
+   console.log(sessionStorage.getItem('gaDatos'));
+   // Redirigir al menú
+   router.push('/menu');
 };
-
+/*
 const f_cerrarSesion = () => {
-   sessionStorage.removeItem('authToken');
-   sessionStorage.removeItem('nombreUsuario');
-   sessionStorage.removeItem('loginTime');
+   sessionStorage.removeItem('gcAuthToken');
+   sessionStorage.removeItem('gcNombreUsuario');
+   //sessionStorage.removeItem('gcLoginTime');
    router.push('/login');
 };
+*/
 </script>
 
 <template>
@@ -74,21 +99,21 @@ const f_cerrarSesion = () => {
     <div class="login-card">
       <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
       <h2>INICIAR SESIÓN</h2>
-      <form @submit.prevent="iniciarSesion">
+      <form @submit.prevent="f_IniciarSesion">
         <div class="input-group">
           <input 
             type="text" 
-            v-model="laData.pcNroDni" 
+            v-model="paData.pcNroDni" 
             placeholder="DNI" 
             required 
           />
           <i class="fas fa-user"></i>
         </div>
-        <p v-if="pcErrorDni" class="error-message">{{ pcErrorDni }}</p>
+        <p v-if="pcError" class="error-message">{{ pcError }}</p>
         <div class="input-group">
           <input 
             :type="plClave ? 'text' : 'password'" 
-            v-model="laData.pcClave" 
+            v-model="paData.pcClave" 
             placeholder="Contraseña" 
             required 
           />
