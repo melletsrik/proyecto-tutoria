@@ -21,9 +21,13 @@ const f_calificarTutoria = () => {
    alert(`Tutoría calificada con éxito: ${n_calificacion.value} estrellas`);
 };
 // Función para salir
+// Función para salir
 const f_salir = () => {
   alert("Has salido del sistema.");
+  window.location.href = '/login'; // Redirige a la página de login
 };
+
+
 const f_recortarNombre = (cNombre) => {
   return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
 };
