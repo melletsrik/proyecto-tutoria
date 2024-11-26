@@ -3,7 +3,7 @@ import '@/assets/estilos/Header.css';
 import { ref, onMounted } from 'vue';
 
 const aCarreras = ref([
-   "INGENIERIA DE SISTEMAS",
+   "INGENIERÍA DE SISTEMAS",
    "CARRERA DE DERECHO",
    "CENTRO DE IDIOMAS",
    "CARRERA DE MEDICINA"
