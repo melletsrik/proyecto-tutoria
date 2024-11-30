@@ -85,7 +85,6 @@ const f_recortarNombre = (cNombre) => {
 };
 </script>
 <template>
-   <NavBar />
    <div class="calificar-tutorias-general">
       <div class="titulo-barra">
          <h2>CALIFICAR LA TUTORÍA</h2>

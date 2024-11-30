@@ -1,8 +1,12 @@
 <script setup>
 import '@/assets/estilos/Navbar.css';
+import { userRouter } from 'vue-router';
+const router = useRouter();
+
 const f_cerrarSesion = () => {
    sessionStorage.removeItem('authToken');
    sessionStorage.removeItem('loginTime');
+   router.push('/login');
 };
 </script>
 
