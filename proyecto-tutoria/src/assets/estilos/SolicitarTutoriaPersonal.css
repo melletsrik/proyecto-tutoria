@@ -1,0 +1,79 @@
+.solicitar-tutoria {
+	max-width: 800px;
+	margin: 40px auto;
+	padding: 20px;
+}
+
+.formulario {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+label {
+	font-size: 14px;
+	font-weight: bold;
+	color: #555;
+}
+
+select,
+input,
+textarea {
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-top: 5px;
+}
+
+select:disabled,
+input:disabled,
+textarea:disabled {
+	background-color: #f0f0f0;
+}
+
+textarea {
+	resize: vertical;
+	height: 120px;
+}
+
+/* Estilo para el mensaje de éxito */
+.mensaje-exito {
+	color: #28a745;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 20px;
+}
+
+/* Estilo para el formulario */
+.formulario input[type="date"],
+.formulario select,
+.formulario textarea {
+	width: 100%;
+}
+
+.formulario button {
+	align-self: center;
+	padding: 12px 20px;
+	font-size: 18px;
+}
+
+.regresar {
+	display: inline-flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.regresar img {
+	margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+	.formulario {
+		gap: 15px;
+	}
+
+	.formulario button {
+		font-size: 14px;
+	}
+}

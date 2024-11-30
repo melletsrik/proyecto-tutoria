@@ -4,23 +4,19 @@ import { ref, onMounted } from 'vue';
 import { useSessionStore } from '@/store/sessionStore';
 const session = useSessionStore()
 
-const aCarreras = ref(JSON.parse(sessionStorage.getItem('gaDatos')));
-const indiceCarrera = ref(0); // Índice para la carrera seleccionada
-const lcarrera = ref(aCarreras.value[indiceCarrera.value].CNOMUNI);
+const laCarreras = ref(JSON.parse(sessionStorage.getItem('gaDatos')));
+const lnIndice = ref(0)
+const lcarrera = ref(laCarreras.value[lnIndice.value].CNOMUNI);
 const lcSaludo = ref('');
 const lcName = ref(sessionStorage.getItem('gcName') || 'Usuario'); // Obtener el nombre del usuario desde sessionStorage
 
 const cambiarCarrera = (direccion) => {
-   //
-   if(aCarreras.length >1){
-      if (direccion === 'izquierda') {
-         indiceCarrera.value = (indiceCarrera.value - 1 + aCarreras.value.length) % aCarreras.value.length;
-      } else if (direccion === 'derecha') {
-         indiceCarrera.value = (indiceCarrera.value + 1) % aCarreras.value.length;
-      }  
+   if(laCarreras.value.length > 1){
+     lnIndice.value = (direccion == 'izquierda') ? lnIndice.value -= 1 : lnIndice.value += 1
+     let lcNomUni = laCarreras.value[lnIndice.value]['CNOMUNI']
+     lcarrera.value = (lcNomUni.length > 15) ? lcNomUni.slice(0, 30) + '...' : lcNomUni
+     sessionStorage.setItem('gcCodAlu', laCarreras.value[lnIndice.value]['CCODALU'])
    }
-   console.log(lcarrera)
-   lcarrera.value = aCarreras.value[indiceCarrera.value];
 };
 
 const f_obtenerSaludo = () => {
@@ -37,10 +33,6 @@ const f_obtenerSaludo = () => {
 onMounted(() => {
    const lcName = sessionStorage.getItem('gcName')
    lcSaludo.value = f_obtenerSaludo(); // Establece el saludo dependiendo de la hora
-   console.log("Saludo:", `${lcSaludo.value}.${lcName}`); // Verificar si el saludo se establece correctamente
-   console.log("Usuario:", lcName); // Verificar el nombre del usuario
-   const jsonlaDatos = JSON.parse(sessionStorage.getItem('gaDatos'));
-   console.log(jsonlaDatos)
 });
 </script>
 
@@ -50,9 +42,9 @@ onMounted(() => {
         <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo" />
       </div>
       <div class="carrera">
-         <button @click="cambiarCarrera('izquierda')" class="flecha izquierda">←</button>
+         <button v-if="laCarreras.length > 1 && lnIndice > 0" @click="cambiarCarrera('izquierda')" class="flecha izquierda">←</button>
          <p>{{ lcarrera }}</p>
-         <button @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
+         <button v-if="laCarreras.length > 1 && lnIndice < laCarreras.length - 1" @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
       </div>
       <div class="saludo">
         <p>{{ lcSaludo }}, {{ lcName }}</p> <!-- Saludo y nombre del usuario -->

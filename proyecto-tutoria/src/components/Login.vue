@@ -79,6 +79,8 @@ const f_IniciarSesion = async () => {
    sessionStorage.setItem('gcToken', loRespon.data.CTOKEN);
    sessionStorage.setItem('gcNombre', loRespon.data.CNOMBRE); // Guardamos solo el primer nombre
    sessionStorage.setItem('gcName', loRespon.data.CNAME); // Guardamos solo el primer nombre
+   sessionStorage.setItem('gcNroDni', loRespon.data.CNRODNI); // Guardamos solo el primer nombre
+   sessionStorage.setItem('gcCodAlu', loRespon.data.DATOS[0]['CCODALU']); // Guardamos solo el primer nombre
    sessionStorage.setItem('gaDatos', JSON.stringify(loRespon.data.DATOS));    // Guardamos solo el primer nombre
    console.log(sessionStorage.getItem('gaDatos'));
    // Redirigir al menú
@@ -101,21 +103,21 @@ const f_cerrarSesion = () => {
       <h2>INICIAR SESIÓN</h2>
       <form @submit.prevent="f_IniciarSesion">
         <div class="input-group">
-          <input 
-            type="text" 
-            v-model="paData.pcNroDni" 
-            placeholder="DNI" 
-            required 
+          <input
+            type="text"
+            v-model="paData.pcNroDni"
+            placeholder="DNI"
+            required
           />
           <i class="fas fa-user"></i>
         </div>
         <p v-if="pcError" class="error-message">{{ pcError }}</p>
         <div class="input-group">
-          <input 
-            :type="plClave ? 'text' : 'password'" 
-            v-model="paData.pcClave" 
-            placeholder="Contraseña" 
-            required 
+          <input
+            :type="plClave ? 'text' : 'password'"
+            v-model="paData.pcClave"
+            placeholder="Contraseña"
+            required
           />
           <i class="fas" :class="plClave ? 'fa-eye-slash' : 'fa-eye'" @click="togglePassword"></i>
         </div>

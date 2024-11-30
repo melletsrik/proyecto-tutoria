@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import '@/assets/estilos/CalificarTutoriasGeneral.css';
+import '@/assets/estilos/Tut1060.css';
 import NavBar from './Navbar.vue';
 const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
@@ -26,7 +26,6 @@ const f_salir = () => {
   alert("Has salido del sistema.");
   window.location.href = '/login'; // Redirige a la página de login
 };
-
 
 const f_recortarNombre = (cNombre) => {
   return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
@@ -66,6 +65,15 @@ const f_recortarNombre = (cNombre) => {
             </tr>
             </tbody>
          </table>
+         <div class="campos">
+            <textarea id="tema" v-model="tema"
+                placeholder="TEMA DE LA TUTORÍA">
+            </textarea>
+            <textarea id="respuesta" v-model="respuesta"
+                placeholder="RESPUESTA DEL DOCENTE">
+            </textarea>
+
+         </div>
          <!-- Mostrar opciones de calificación -->
          <div>
             <!-- Mostrar mensaje si no hay tutoría seleccionada -->
