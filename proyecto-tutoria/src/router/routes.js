@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Login from "@/components/Login.vue";
+import Login from "@/components/pages/Login.vue";
 import Menu from "@/components/Menu.vue";
 import ElegirTipoTutoria from "@/components/ElegirTipoTutoria.vue";
-import Tut1060 from "@/components/Tut1060.vue";
+import Tut1060 from "@/components/pages/Tut1060.vue";
 import TutoriaPersonal from "@/components/TutoriaPersonal.vue";
 import SolicitarTutoriaPersonal from "@/components/SolicitarTutoriaPersonal.vue";
 import SolicitarTutoriaParticular from "@/components/SolicitarTutoriaParticular.vue";

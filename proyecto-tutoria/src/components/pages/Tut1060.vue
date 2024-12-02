@@ -1,6 +1,6 @@
 <script setup>
 import '@/assets/estilos/Tut1060.css';
-import NavBar from './Navbar.vue';
+import NavBar from '../Navbar.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
@@ -59,6 +59,7 @@ const listarTutorias = async () => {
          CTOKEN: sessionStorage.getItem('gcToken'),
       })
       .then(data => {
+         console.log(data)
          if (data == null) {
             alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
             return ;

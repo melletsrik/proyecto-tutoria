@@ -3,15 +3,15 @@ import { ref } from 'vue';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@/assets/estilos/Login.css';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 import CryptoJS from 'crypto-js';
-import { useSessionStore } from '@/store/sessionStore';
-const session = useSessionStore();
+import { useAuthStore } from "@/store/authStore";
+import { http } from "@/plugins/axios.js";
+import {apiPost} from "@/plugins/api.js";
 
-
+const authStore = useAuthStore();
 const plClave = ref(false);
 const paData = ref({
-   pcNroDni: '',
+   CNRODOC: '',
    pcClave: ''
 });
 const pcError = ref('');
@@ -29,7 +29,7 @@ const f_validarDni = (p_pcNroDni) => {
 
 const f_IniciarSesion = async () => {
    /*
-   if (!f_validarDni(paData.value.pcNroDni)) {
+   if (!f_validarDni(paData.value.CNRODOC)) {
       pcError.value = 'NÚMERO DE DNI INVÁLIDO';
       return;
    } else {
@@ -37,23 +37,31 @@ const f_IniciarSesion = async () => {
    }
    */
    pcError.value = '';
-   if (!f_validarDni(paData.value.pcNroDni)) {
+   if (!f_validarDni(paData.value.CNRODOC)) {
       pcError.value = 'NÚMERO DE DNI INVÁLIDO';
       return;
    }
-   // Hasheamos la clave antes de enviarla
    let lcClave = CryptoJS.SHA512(paData.value.pcClave).toString();
-   console.log(paData.value.pcNroDni)
+
+   const { MENSAJE, isLogged } = await authStore.login({ ...paData.value, CCLAVE: lcClave, ID: 'LOGINE' })
+   alert()
+   // await apiPost({ ...paData.value, CCLAVE: lcClave, ID: 'LOGINE' })
+   // Hasheamos la clave antes de enviarla
+   /*let lcClave = CryptoJS.SHA512(paData.value.pcClave).toString();
+   console.log(paData.value.CNRODOC)
    // Llama al APIREST
    let loRespon = null;
    try {
       loRespon = await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
          ID: 'LOGINE',
-         CNRODOC: paData.value.pcNroDni,
+         CNRODOC: paData.value.CNRODOC,
          CCLAVE: lcClave // Enviar la contraseña hasheada
       });
+      loRespon = await http.post()
+     console.log(loRespon)
       console.log('LLAMADA API')
    } catch (error) {
+     console.log(error)
       console.error('Error de autenticación:', error);
       alert('NO SE PUDO CONECTAR CON EL SERVIDOR (1)');
       return ;
@@ -71,11 +79,6 @@ const f_IniciarSesion = async () => {
    }
    console.log(loRespon.data);
    console.log('respuesta API')
-   // session.setUsuario(loRespon.data);
-   // console.log(loRespon.value);
-   // session.setNombre(loRespon.data.CNAME);
-   // sessionStorage.setItem('app_user', loRespon.data);
-   // sessionStorage.setItem('nombre', loRespon.data.CNAME);
    sessionStorage.setItem('gcToken', loRespon.data.CTOKEN);
    sessionStorage.setItem('gcNombre', loRespon.data.CNOMBRE); // Guardamos solo el primer nombre
    sessionStorage.setItem('gcName', loRespon.data.CNAME); // Guardamos solo el primer nombre
@@ -84,7 +87,7 @@ const f_IniciarSesion = async () => {
    sessionStorage.setItem('gaDatos', JSON.stringify(loRespon.data.DATOS));    // Guardamos solo el primer nombre
    console.log(sessionStorage.getItem('gaDatos'));
    // Redirigir al menú
-   router.push('/menu');
+   router.push('/menu');*/
 };
 /*
 const f_cerrarSesion = () => {
@@ -99,15 +102,16 @@ const f_cerrarSesion = () => {
 <template>
   <div class="login-container">
     <div class="login-card">
-      <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
+      <img src="../../assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
       <h2>INICIAR SESIÓN</h2>
       <form @submit.prevent="f_IniciarSesion">
         <div class="input-group">
           <input
             type="text"
-            v-model="paData.pcNroDni"
+            v-model="paData.CNRODOC"
             placeholder="DNI"
             required
+            autofocus
           />
           <i class="fas fa-user"></i>
         </div>

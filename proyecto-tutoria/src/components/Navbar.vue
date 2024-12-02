@@ -1,6 +1,6 @@
 <script setup>
 import '@/assets/estilos/Navbar.css';
-import { userRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const f_cerrarSesion = () => {
