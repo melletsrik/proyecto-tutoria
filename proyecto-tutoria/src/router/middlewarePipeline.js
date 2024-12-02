@@ -5,7 +5,6 @@ export default function middlewarePipeline(context, middleware, index){
       return context.next;
    }
 
-
    return (params) => {
       if(params){
          const nextGuard = context.next;

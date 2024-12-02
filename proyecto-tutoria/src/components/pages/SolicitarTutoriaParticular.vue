@@ -1,6 +1,6 @@
 <script setup>
 import '@/assets/estilos/SolicitarTutoriaParticular.css';
-import NavBar from './Navbar.vue';
+import NavBar from '../Navbar.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
@@ -47,7 +47,7 @@ const f_salir = () => {
             <button type="submit" class="btn">Solicitar Tutoría</button>
         </form>
         <button class="regresar" @click="f_regresar">
-            <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
+            <img class="icon" src="../../assets/imagenes/icon-back.webp" alt="Regresar" />
             Volver
         </button>
 

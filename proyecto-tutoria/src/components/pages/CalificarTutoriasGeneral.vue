@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import '@/assets/estilos/CalificarTutoriasGeneral.css';
-import NavBar from './Navbar.vue';
+import NavBar from '../Navbar.vue';
 import axios from 'axios';
 import { onMounted } from 'vue';
 

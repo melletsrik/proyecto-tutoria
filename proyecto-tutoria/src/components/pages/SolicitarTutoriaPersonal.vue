@@ -1,7 +1,7 @@
 //TUTORIA PERSONAL
 <script setup>
 import '@/assets/estilos/CalificarTutoriasGeneral.css';
-import NavBar from './Navbar.vue';
+import NavBar from '../Navbar.vue';
 import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 

@@ -28,7 +28,7 @@ const f_regresar = () => {
 <template>
   <div class="elegir-tipo-tutoria">
     <!-- Logo en la parte superior -->
-    <img class="logoTipoTutoria" src="@/assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
+    <img class="logoTipoTutoria" src="../../assets/imagenes/ucsm-logo.webp" alt="Logo UCSM" />
 
     <div class="botones-tutoria">
       <button
@@ -56,7 +56,7 @@ const f_regresar = () => {
 
     <!-- Botón Volver -->
     <button class="regresar" @click="f_regresar">
-      <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
+      <img class="icon" src="../../assets/imagenes/icon-back.webp" alt="Regresar" />
       Volver
     </button>
   </div>

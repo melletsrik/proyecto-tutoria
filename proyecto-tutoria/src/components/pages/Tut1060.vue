@@ -1,11 +1,13 @@
 <script setup>
 import '@/assets/estilos/Tut1060.css';
-import NavBar from '../Navbar.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-const router = useRouter();
+import { apiPost } from '@/plugins/api';
+import { useAuthStore } from "@/store/authStore";
 
+const authStore = useAuthStore();
+const router = useRouter();
 const pnCalifi = ref(0); // n_ para numérico
 const pcIdTutoSel = ref(null); // p_ para parámetro
 
@@ -18,62 +20,35 @@ const f_calificarTutoria = async () => {
       alert('Selecciona una tutoría y una calificación.');
       return;
    }
-   try {
-      await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
-         ID: 'TUT1061',
-         CIDTUTO: pcIdTutoSel.value,
-         CCODALU: sessionStorage.getItem('gcCodAlu'),
-         CNRODNI: sessionStorage.getItem('gcNroDni'),
-         NCALIFI: pnCalifi.value,
-         CTOKEN: sessionStorage.getItem('gcToken'),
-      })
-      .then(data => {
-         if (data == null) {
-            alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
-            return ;
-            // OJOFPM
-         } else if (data.ERROR) {
-            alert(data.ERROR);
-            return;
-         } else {
-            alert('CALIFICACIÓN ENVIADA CORRECTAMENTE')
-         }
-      })
-   } catch (error) {
-      alert('ERROR APROBAR');
-      return ;
-      // OJOFPM
+   const loBody = {
+      ID: 'TUT1061',
+      CIDTUTO: pcIdTutoSel.value,
+      CCODALU: authStore.getCodAlu,
+      CNRODNI: authStore.getNroDni,
+      NCALIFI: pnCalifi.value,
+      CTOKEN: authStore.getToken,
    }
-
+   const response = await apiPost(loBody)
+   if (response.OK) {
+      alert('Calificación enviada correctamente.')
+   }
 };
 
 onMounted(() => {
    listarTutorias()
 });
 const listarTutorias = async () => {
-   try {
-      await axios.post('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
-         ID: 'TUT1060',
-         CCODALU: sessionStorage.getItem('gcCodAlu'),
-         CNRODNI: sessionStorage.getItem('gcNroDni'),
-         CTOKEN: sessionStorage.getItem('gcToken'),
-      })
-      .then(data => {
-         console.log(data)
-         if (data == null) {
-            alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
-            return ;
-            // OJOFPM
-         } else if (data.ERROR) {
-            alert(data.ERROR);
-            return;
-         } else {
-            a_tutoriasPendientes.value = data.data
-         }
-      })
-   } catch (error) {
-      alert('OCURRIO UN ERROR MOUNTED');
-      return ;
+   const loBody = {
+      ID: 'TUT1060',
+      CCODALU: authStore.getCodAlu,
+      CNRODNI: authStore.getNroDni,
+      CTOKEN: authStore.getToken,
+   }
+   const response = await apiPost(loBody)
+   if (response.ERROR) {
+      alert(response.ERROR);
+   } else {
+      a_tutoriasPendientes.value = response
    }
 }
 

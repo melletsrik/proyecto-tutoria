@@ -1,21 +1,19 @@
 <script setup>
 import '@/assets/estilos/Header.css';
 import { ref, onMounted } from 'vue';
-import { useSessionStore } from '@/store/sessionStore';
-const session = useSessionStore()
+import { useAuthStore } from '@/store/authStore';
 
-const laCarreras = ref(JSON.parse(sessionStorage.getItem('gaDatos')));
-const lnIndice = ref(0)
-const lcarrera = ref(laCarreras.value[lnIndice.value].CNOMUNI);
+const authStore = useAuthStore();
+const laCarreras = ref([]);
+const lcCarrera = ref('');
 const lcSaludo = ref('');
-const lcName = ref(sessionStorage.getItem('gcName') || 'Usuario'); // Obtener el nombre del usuario desde sessionStorage
 
 const cambiarCarrera = (direccion) => {
    if(laCarreras.value.length > 1){
-     lnIndice.value = (direccion == 'izquierda') ? lnIndice.value -= 1 : lnIndice.value += 1
-     let lcNomUni = laCarreras.value[lnIndice.value]['CNOMUNI']
-     lcarrera.value = (lcNomUni.length > 15) ? lcNomUni.slice(0, 30) + '...' : lcNomUni
-     sessionStorage.setItem('gcCodAlu', laCarreras.value[lnIndice.value]['CCODALU'])
+     const lnIndice = (direccion == 'izquierda') ? authStore.getIndice - 1 : authStore.getIndice + 1
+     authStore.setIndiceCarrera(lnIndice)
+     let lcNomUni = laCarreras.value[authStore.getIndice]['CNOMUNI']
+     lcCarrera.value = (lcNomUni.length > 15) ? lcNomUni.slice(0, 30) + '...' : lcNomUni
    }
 };
 
@@ -31,7 +29,8 @@ const f_obtenerSaludo = () => {
 };
 
 onMounted(() => {
-   const lcName = sessionStorage.getItem('gcName')
+   laCarreras.value = authStore.getCarreras
+   lcCarrera.value = authStore.getCarreras[authStore.getIndice].CNOMUNI
    lcSaludo.value = f_obtenerSaludo(); // Establece el saludo dependiendo de la hora
 });
 </script>
@@ -42,12 +41,12 @@ onMounted(() => {
         <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo" />
       </div>
       <div class="carrera">
-         <button v-if="laCarreras.length > 1 && lnIndice > 0" @click="cambiarCarrera('izquierda')" class="flecha izquierda">←</button>
-         <p>{{ lcarrera }}</p>
-         <button v-if="laCarreras.length > 1 && lnIndice < laCarreras.length - 1" @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
+         <button v-if="laCarreras.length > 1 && authStore.getIndice > 0" @click="cambiarCarrera('izquierda')" class="flecha izquierda">←</button>
+         <p>{{ lcCarrera }}</p>
+         <button v-if="laCarreras.length > 1 && authStore.getIndice < laCarreras.length - 1" @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
       </div>
       <div class="saludo">
-        <p>{{ lcSaludo }}, {{ lcName }}</p> <!-- Saludo y nombre del usuario -->
+        <p>{{ lcSaludo }}, {{ authStore.getName }}</p> <!-- Saludo y nombre del usuario -->
       </div>
    </header>
 </template>

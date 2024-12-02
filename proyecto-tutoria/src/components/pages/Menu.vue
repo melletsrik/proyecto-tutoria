@@ -1,9 +1,9 @@
 <script setup>
 import '@/assets/estilos/Menu.css';
 import { ref } from 'vue';
-import MenuCard from './MenuCard.vue';
-import Header from './Header.vue';
-import Footer from './Footer.vue';
+import MenuCard from '../MenuCard.vue';
+import Header from '../Header.vue';
+import Footer from '../Footer.vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();

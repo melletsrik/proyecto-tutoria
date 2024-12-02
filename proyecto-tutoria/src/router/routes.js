@@ -1,11 +1,12 @@
-import {createRouter, createWebHistory} from "vue-router";
+import { authMiddleware } from "@/middleware/authMiddleware.js";
+
 import Login from "@/components/pages/Login.vue";
-import Menu from "@/components/Menu.vue";
-import ElegirTipoTutoria from "@/components/ElegirTipoTutoria.vue";
+import Menu from "@/components/pages/Menu.vue";
+import ElegirTipoTutoria from "@/components/pages/ElegirTipoTutoria.vue";
 import Tut1060 from "@/components/pages/Tut1060.vue";
 import TutoriaPersonal from "@/components/TutoriaPersonal.vue";
-import SolicitarTutoriaPersonal from "@/components/SolicitarTutoriaPersonal.vue";
-import SolicitarTutoriaParticular from "@/components/SolicitarTutoriaParticular.vue";
+import SolicitarTutoriaPersonal from "@/components/pages/SolicitarTutoriaPersonal.vue";
+import SolicitarTutoriaParticular from "@/components/pages/SolicitarTutoriaParticular.vue";
 import TutoriaLayout from "@/components/layouts/TutoriaLayout.vue";
 
 export const routes = [
@@ -18,11 +19,21 @@ export const routes = [
       path: '/menu',
       name: 'menu',
       component: Menu,
+      meta: {
+         middleware: [
+            authMiddleware,
+         ]
+      },
    },
    {
       path: "/",
       component: TutoriaLayout,
       redirect: '/elegit-tipo-tutoria',
+      meta: {
+         middleware: [
+            authMiddleware,
+         ]
+      },
       children: [
          {
             path: '/elegir-tipo-tutoria',
