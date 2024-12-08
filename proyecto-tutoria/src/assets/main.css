@@ -6,3 +6,45 @@
 *{
   margin: 0px;
 }
+.titulo-barra {
+  background-color: #fccc04;
+  padding: 10px 20px;
+}
+.titulo-barra h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0;
+  font-size: 20px;
+}
+button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+button.verde {
+  background-color: #4CAF50;
+}
+button.verde:hover {
+  background-color: #45a049;
+}
+button.rojo {
+  background-color: red;
+}
+
+button.rojo:hover {
+  background-color: red;
+}
+.icon {
+  width: 20px; /* Tamaño del ícono */
+  height: auto; /* Mantiene las proporciones */
+  margin-right: 8px; /* Espaciado entre el ícono y el texto */
+  vertical-align: middle; /* Alinea el ícono con el texto */
+}
+

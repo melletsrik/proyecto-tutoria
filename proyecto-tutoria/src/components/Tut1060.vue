@@ -76,9 +76,9 @@ const listarTutorias = async () => {
    }
 }
 
-// Función para salir
-const f_salir = () => {
-  router.push('/elegir-tipo-tutoria');
+// Función para volver al menu
+const f_volver = () => {
+  router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
 };
 const f_recortarNombre = (cNombre) => {
   return cNombre.length > 15 ? cNombre.slice(0, 30) + '...' : cNombre;
@@ -139,7 +139,10 @@ const f_recortarNombre = (cNombre) => {
          <!-- Botones de acción -->
          <div class="botones container-center">
             <button class="calificar" @click="f_calificarTutoria">Calificar</button>
-            <button class="button-salir" @click="f_salir">Salir</button>
+            <button class="rojo" @click="f_volver">
+               <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Volver" />
+               Volver
+            </button>
          </div>
       </div>
    </div>

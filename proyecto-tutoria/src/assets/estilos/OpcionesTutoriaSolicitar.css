@@ -1,35 +1,11 @@
 .elegir-tipo-tutoria {
-  padding: 20px;
   text-align: center;
 }
-
-.logoTipoTutoria {
-  width: 220px; /* Ajusta el tamaño del logo */
-  margin-bottom: 20px; /* Añade espacio debajo del logo */
-}
-
 .botones-tutoria {
   display: flex;
   flex-wrap: wrap; /* Permite que los elementos se ajusten en filas */
   gap: 10px; /* Espaciado entre los botones */
   justify-content: center; /* Centra todos los botones */
-}
-
-.boton {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: 0.3s;
-  flex: 0 0 calc(50% - 10px); /* Cada botón ocupa el 50% menos el espacio del gap */
-  box-sizing: border-box; /* Incluye el padding en el ancho total */
-}
-
-.boton:hover {
-  background-color: #4CAF50;
-  color: white;
 }
 
 .activo {

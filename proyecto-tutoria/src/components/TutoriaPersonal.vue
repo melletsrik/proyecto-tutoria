@@ -20,15 +20,13 @@ const f_calificarTutoria = () => {
    p_tutorSeleccionado.value = null; // Limpia la selección después de calificar
    alert(`Tutoría calificada con éxito: ${n_calificacion.value} estrellas`);
 };
-// Función para salir
-// Función para salir
-const f_salir = () => {
-  alert("Has salido del sistema.");
-  window.location.href = '/login'; // Redirige a la página de login
+// Función para volver al menu
+const f_volver = () => {
+  router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
 };
 
 const f_recortarNombre = (cNombre) => {
-  return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
+   return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
 };
 </script>
 <template>
@@ -44,33 +42,27 @@ const f_recortarNombre = (cNombre) => {
          <!-- Tabla de tutorías -->
          <table v-else>
             <thead>
-            <tr>
-               <th class="col-nombre">DOCENTE</th>
-               <th class="col-fecha">FECHA Y HORA</th>
-               <th class="col-seleccion"></th>
-            </tr>
+               <tr>
+                  <th class="col-nombre">DOCENTE</th>
+                  <th class="col-fecha">FECHA Y HORA</th>
+                  <th class="col-seleccion"></th>
+               </tr>
             </thead>
             <tbody>
-            <tr v-for="p_tutoria in a_tutoriasPendientes.filter(t => !t.calificada)" :key="p_tutoria.CIDTUTO">
-               <td>{{ f_recortarNombre(p_tutoria.CNOMDOC) }}</td>
-               <td>{{ p_tutoria.DFECHA }}</td>
-               <td>
-                  <input
-                  type="radio"
-                  :value="p_tutoria"
-                  v-model="p_tutorSeleccionado"
-                  :name="'tutoria-' + p_tutoria.CIDTUTO"
-                  />
-               </td>
-            </tr>
+               <tr v-for="p_tutoria in a_tutoriasPendientes.filter(t => !t.calificada)" :key="p_tutoria.CIDTUTO">
+                  <td>{{ f_recortarNombre(p_tutoria.CNOMDOC) }}</td>
+                  <td>{{ p_tutoria.DFECHA }}</td>
+                  <td>
+                     <input type="radio" :value="p_tutoria" v-model="p_tutorSeleccionado"
+                        :name="'tutoria-' + p_tutoria.CIDTUTO" />
+                  </td>
+               </tr>
             </tbody>
          </table>
          <div class="campos">
-            <textarea id="tema" v-model="tema"
-                placeholder="TEMA DE LA TUTORÍA">
+            <textarea id="tema" v-model="tema" placeholder="TEMA DE LA TUTORÍA">
             </textarea>
-            <textarea id="respuesta" v-model="respuesta"
-                placeholder="RESPUESTA DEL DOCENTE">
+            <textarea id="respuesta" v-model="respuesta" placeholder="RESPUESTA DEL DOCENTE">
             </textarea>
 
          </div>
@@ -83,20 +75,16 @@ const f_recortarNombre = (cNombre) => {
             <!-- Opciones de calificación solo si hay tutoría seleccionada -->
             <div v-else class='calificacion-estrellas'>
                <label v-for="i in 5" :key="i">
-                  <input
-                     type="radio"
-                     v-model="n_calificacion"
-                     :value="i"
-                  />
+                  <input type="radio" v-model="n_calificacion" :value="i" />
                   {{ i }}✰
                </label>
             </div>
          </div>
          <!-- Botones de acción -->
-         <div class="botones">
-            <button class="calificar" @click="f_calificarTutoria">Calificar</button>
-            <button class="button-salir" @click="f_salir">Salir</button>
-         </div>
+         <button class="rojo" @click="f_volver">
+               <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Volver" />
+               Volver
+         </button>
       </div>
    </div>
 </template>

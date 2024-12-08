@@ -6,8 +6,6 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { useSessionStore } from '@/store/sessionStore';
-const session = useSessionStore();
-
 
 const plClave = ref(false);
 const paData = ref({

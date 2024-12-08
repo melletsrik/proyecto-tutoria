@@ -1,53 +1,53 @@
 <script setup>
-   import '@/assets/estilos/CalificarTutoriasGeneral.css';
-   import NavBar from './Navbar.vue';
-   import { ref, watch, onMounted } from 'vue';
-   import { useRouter } from 'vue-router';
+import '@/assets/estilos/CalificarTutoriasGeneral.css';
+import NavBar from './Navbar.vue';
+import { ref, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-   const router = useRouter();
+const router = useRouter();
 
-   // Función para salir
-   const f_Salir = () => {
-       router.push('/elegir-tipo-tutoria');
-   };
+// Función para salir
+const f_Salir = () => {
+   router.push('/elegir-tipo-tutoria');
+};
 
-   // Tipos de tutoría
-   const paTipo = ref([
-     { CCODIGO: 'A', CDESCRI: 'Individual' },
-     { CCODIGO: 'B', CDESCRI: 'Grupales' },
-     { CCODIGO: 'C', CDESCRI: 'Personal' },
-     { CCODIGO: 'D', CDESCRI: 'Orientación Profesional' }
-   ]);
+// Tipos de tutoría
+const paTipo = ref([
+   { CCODIGO: 'A', CDESCRI: 'Individual' },
+   { CCODIGO: 'B', CDESCRI: 'Grupales' },
+   { CCODIGO: 'C', CDESCRI: 'Personal' },
+   { CCODIGO: 'D', CDESCRI: 'Orientación Profesional' }
+]);
 
-   const paCodDoc = ref([]); // Lista de docentes filtrados según el tipo de tutoría
-   const pcTipo   = ref(''); // Tipo de tutoría seleccionado
-   const pcUsuCod = ref(''); // Docente seleccionado
-   //const fechaTutoria = ref(''); // Fecha seleccionada
-   const pmConsul = ref(''); // Descripción del tema de tutoría
-   const mensajeExito = ref(''); // Mensaje de éxito después de enviar la solicitud
+const paCodDoc = ref([]); // Lista de docentes filtrados según el tipo de tutoría
+const pcTipo = ref(''); // Tipo de tutoría seleccionado
+const pcUsuCod = ref(''); // Docente seleccionado
+//const fechaTutoria = ref(''); // Fecha seleccionada
+const pmConsul = ref(''); // Descripción del tema de tutoría
+const mensajeExito = ref(''); // Mensaje de éxito después de enviar la solicitud
 
-   // Observador para actualizar los docentes filtrados cuando el tipo de tutoría cambia
-   watch(pcTipo, (nuevoTipo) => {
-     if (nuevoTipo) {
-       paCodDoc.value = docentesPorTipo[nuevoTipo] || [];
-     } else {
-       paCodDoc.value = [];
-     }
+// Observador para actualizar los docentes filtrados cuando el tipo de tutoría cambia
+watch(pcTipo, (nuevoTipo) => {
+   if (nuevoTipo) {
+      paCodDoc.value = docentesPorTipo[nuevoTipo] || [];
+   } else {
+      paCodDoc.value = [];
+   }
+});
+
+// Función para solicitar tutoría
+const f_Solicitar = () => {
+   console.log('Solicitud enviada:', {
+      CTIPO: pcTipo.value, CUSUCOD: pcUsuCod.value, MCONSUL: pmConsul.value
    });
+   // Mostrar mensaje de éxito
+   mensajeExito.value = "Tutoría solicitada con éxito.";
+};
 
-   // Función para solicitar tutoría
-   const f_Solicitar = () => {
-      console.log('Solicitud enviada:', {
-         CTIPO: pcTipo.value, CUSUCOD: pcUsuCod.value, MCONSUL: pmConsul.value
-      });
-      // Mostrar mensaje de éxito
-      mensajeExito.value = "Tutoría solicitada con éxito.";
-   };
-
-   // Función para regresar
-   const f_Regresar = () => {
-      router.push('/home'); // Ajusta según la ruta de regreso que desees
-   };
+// Función para volver al menu
+const f_volver = () => {
+   router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
+};
 </script>
 <template>
    <NavBar />
@@ -66,7 +66,7 @@
          <label for="docente">DOCENTE:</label>
          <select id="pcUsuCod" v-model="pcUsuCod" :disabled="!pcTipo">
             <option value="" disabled>--- SELECCIONE ---</option>
-            <option v-for="laTmp in paCodDoc" : key="laTmp.CCODDOC" :value="laTmp.CNOMBRE">
+            <option v-for="laTmp in paCodDoc" :key="laTmp.CCODDOC" :value="laTmp.CNOMBRE">
                {{ laTmp.CNOMBRE }}
             </option>
          </select>
@@ -77,8 +77,10 @@
          <!--<button class="buttom-green" @click="f_Solicitar">Solicitar</button>-->
          <button class="calificar" @click="f_Solicitar">Solicitar</button>
          <!--<button class="button-exit" @click="f_salir">Volver</button>-->
-         <button class="button-salir" @click="f_Regresar"></button>
+         <button class="rojo" @click="f_volver">
+            <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Volver" />
+            Volver
+         </button>
       </div>
    </div>
 </template>
-

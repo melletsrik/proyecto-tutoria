@@ -1,57 +1,119 @@
 <script setup>
-import '@/assets/estilos/SolicitarTutoriaParticular.css';
+import '@/assets/estilos/SolicitarTutoria.css';
 import NavBar from './Navbar.vue';
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import Multiselect from 'vue-multiselect'; // Importar Vue Multiselect
+import 'vue-multiselect/dist/vue-multiselect.css';
+
 const router = useRouter();
 
+// Tipos de tutoría
+const tiposTutoria = ref([
+  { id: 1, nombre: 'Individual' },
+  { id: 2, nombre: 'Grupales' },
+  { id: 3, nombre: 'PARTICULAR' },
+  { id: 4, nombre: 'Orientación Profesional' }
+]);
 
-// Función para salir
-const f_salir = () => {
-    router.push('/elegir-tipo-tutoria');
+const docentes = ref([]); // Lista de docentes obtenida de la API
+const selectedTipoTutoria = ref(''); // Tipo de tutoría seleccionado
+const terminoBusqueda = ref(''); // Término de búsqueda ingresado por el usuario
+const selectedDocente = ref(''); // Docente seleccionado
+const descripcion = ref(''); // Tema de la tutoría
+const mensajeExito = ref(''); // Mensaje de éxito
+
+// Función para obtener todos los docentes al inicio
+const obtenerTodosLosDocentes = async () => {
+  try {
+    const response = await fetch('https://transacciones.ucsm.edu.pe/wsPython/ERP', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        CBUSQUE: '', // Campo vacío para obtener todos los tutores
+        CUNIACA: '71'
+      })
+    });
+
+    const data = await response.json();
+    docentes.value = data.map(docente => ({
+      id: docente.CCODDOC,
+      nombre: docente.CNOMBRE
+    }));
+  } catch (error) {
+    console.error('Error al obtener todos los docentes:', error);
+  }
 };
 
+// Función para solicitar tutoría
+const solicitarTutoria = () => {
+  console.log('Solicitud enviada:', {
+    tipoTutoria: selectedTipoTutoria.value,
+    docente: selectedDocente.value,
+    tema: descripcion.value
+  });
+  mensajeExito.value = '¡Tutoría solicitada exitosamente!';
+};
 
+// Función para volver al menú
+const f_volver = () => {
+  router.push('/menu');
+};
+
+// Llamar a la API al montar el componente para obtener todos los tutores
+onMounted(() => {
+  obtenerTodosLosDocentes();
+});
 </script>
+
 <template>
-    <NavBar />
-    <div class="solicitar-tutoria-particular">
-        <h2>Solicitar Tutoría Personal</h2>
-
-        <label for="docente">TIPO DE TUTORÍA:</label>
-        <form @submit.prevent="solicitarTutoria" class="formulario">
-
-            <select id="tipoTutoria" v-model="selectedTipoTutoria" :disabled="!selectedTipoTutoria">
-                <option value="" disabled>Seleccione el tipo de tutoría</option>
-                <option v-for="tipoTutoria in tiposTutoria" :key="tipoTutoria.id" :value="tipoTutoria.nombre">
-                    {{ docente.nombre }}
-                </option>
-            </select>
-
-            <label for="docente">DOCENTE:</label>
-            <select id="docente" v-model="selectedDocente" :disabled="!selectedUnidad">
-                <option value="" disabled>Seleccione un docente</option>
-                <option v-for="docente in docentesFiltrados" :key="docente.id" :value="docente.nombre">
-                    {{ docente.nombre }}
-                </option>
-            </select>
-
-            <label for="fecha">Fecha:</label>
-            <input id="fecha" type="date" v-model="fechaTutoria" />
-
-            <label for="descripcion">TEMA:</label>
-            <textarea id="descripcion" v-model="descripcion"
-                placeholder="Escriba una breve descripción del tema de la tutoría"></textarea>
-
-            <button type="submit" class="btn">Solicitar Tutoría</button>
-        </form>
-        <button class="regresar" @click="f_regresar">
-            <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Regresar" />
-            Volver
-        </button>
-
-        <p v-if="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
+  <NavBar />
+  <div class="solicitar-tutoria">
+    <div class="titulo-barra">
+      <h2>SOLICITA TUTORÍA PARTICULAR</h2>
     </div>
 
+    <form @submit.prevent="solicitarTutoria" class="formulario">
+      <!-- Selección de tipo de tutoría -->
+      <label>TIPO DE TUTORÍA:</label>
+      <select id="tipoTutoria" v-model="selectedTipoTutoria">
+        <option value="" disabled>Seleccione el tipo de tutoría</option>
+        <option v-for="tipoTutoria in tiposTutoria" :key="tipoTutoria.id" :value="tipoTutoria.nombre">
+          {{ tipoTutoria.nombre }}
+        </option>
+      </select>
+
+      <!-- Selección de docente filtrado con Vue Multiselect -->
+      <label for="docente">SELECCIONE DOCENTE:</label>
+      <multiselect
+        id="docente"
+        v-model="selectedDocente"
+        :options="docentes"
+        :searchable="true"
+        :placeholder="'Escribe para buscar un docente...'"
+        label="nombre"
+        track-by="id"
+        :close-on-select="true"
+        :allow-empty="false"
+      />
+
+      <!-- Campo para descripción del tema -->
+      <label for="descripcion">TEMA:</label>
+      <textarea id="descripcion" v-model="descripcion" placeholder="Escriba una breve descripción del tema de la tutoría"></textarea>
+
+      <!-- Botones -->
+      <div class="botones">
+        <button class="calificar" @click="solicitarTutoria">Solicitar</button>
+        <button class="rojo" @click="f_volver">
+          <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Volver" />
+          Volver
+        </button>
+      </div>
+    </form>
+
+    <!-- Mensaje de éxito -->
+    <p v-if="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</p>
+  </div>
 </template>
