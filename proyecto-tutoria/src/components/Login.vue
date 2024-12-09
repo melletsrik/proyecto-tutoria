@@ -13,7 +13,7 @@ const paData = ref({
    pcClave: ''
 });
 const pcError = ref('');
-const router = useRouter();
+const p_router = useRouter();
 
 const togglePassword = () => {
    plClave.value = !plClave.value;
@@ -54,13 +54,13 @@ const f_IniciarSesion = async () => {
    } catch (error) {
       console.error('Error de autenticación:', error);
       alert('NO SE PUDO CONECTAR CON EL SERVIDOR (1)');
-      return ;
+      return;
       // OJOFPM
    }
    // Verifica respuesta
    if (loRespon == null) {
       alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
-      return ;
+      return;
       // OJOFPM
    } else if (loRespon.data.ERROR) {
       alert(loRespon.data.ERROR);
@@ -82,7 +82,7 @@ const f_IniciarSesion = async () => {
    sessionStorage.setItem('gaDatos', JSON.stringify(loRespon.data.DATOS));    // Guardamos solo el primer nombre
    console.log(sessionStorage.getItem('gaDatos'));
    // Redirigir al menú
-   router.push('/menu');
+   p_router.push('/menu');
 };
 /*
 const f_cerrarSesion = () => {
@@ -95,34 +95,25 @@ const f_cerrarSesion = () => {
 </script>
 
 <template>
-  <div class="login-container">
-    <div class="login-card">
-      <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
-      <h2>INICIAR SESIÓN</h2>
-      <form @submit.prevent="f_IniciarSesion">
-        <div class="input-group">
-          <input
-            type="text"
-            v-model="paData.pcNroDni"
-            placeholder="DNI"
-            required
-          />
-          <i class="fas fa-user"></i>
-        </div>
-        <p v-if="pcError" class="error-message">{{ pcError }}</p>
-        <div class="input-group">
-          <input
-            :type="plClave ? 'text' : 'password'"
-            v-model="paData.pcClave"
-            placeholder="Contraseña"
-            required
-          />
-          <i class="fas" :class="plClave ? 'fa-eye-slash' : 'fa-eye'" @click="togglePassword"></i>
-        </div>
-        <div class="button-group">
-          <button type="submit" class="login-boton">INGRESAR</button>
-        </div>
-      </form>
-    </div>
-  </div>
+   <div class="login-container">
+      <div class="login-card">
+         <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo">
+         <h2>INICIAR SESIÓN</h2>
+         <form @submit.prevent="f_IniciarSesion">
+            <div class="input-group">
+               <input type="text" v-model="paData.pcNroDni" placeholder="DNI" required />
+               <i class="fas fa-user"></i>
+            </div>
+            <p v-if="pcError" class="error-message">{{ pcError }}</p>
+            <div class="input-group">
+               <input :type="plClave ? 'text' : 'password'" v-model="paData.pcClave" placeholder="Contraseña"
+                  required />
+               <i class="fas" :class="plClave ? 'fa-eye-slash' : 'fa-eye'" @click="togglePassword"></i>
+            </div>
+            <div class="button-group">
+               <button type="submit" class="login-boton">INGRESAR</button>
+            </div>
+         </form>
+      </div>
+   </div>
 </template>

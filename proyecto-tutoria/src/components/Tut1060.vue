@@ -4,7 +4,7 @@ import NavBar from './Navbar.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-const router = useRouter();
+const p_router = useRouter();
 
 const pnCalifi = ref(0); // n_ para numérico
 const pcIdTutoSel = ref(null); // p_ para parámetro
@@ -27,21 +27,21 @@ const f_calificarTutoria = async () => {
          NCALIFI: pnCalifi.value,
          CTOKEN: sessionStorage.getItem('gcToken'),
       })
-      .then(data => {
-         if (data == null) {
-            alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
-            return ;
-            // OJOFPM
-         } else if (data.ERROR) {
-            alert(data.ERROR);
-            return;
-         } else {
-            alert('CALIFICACIÓN ENVIADA CORRECTAMENTE')
-         }
-      })
+         .then(data => {
+            if (data == null) {
+               alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
+               return;
+               // OJOFPM
+            } else if (data.ERROR) {
+               alert(data.ERROR);
+               return;
+            } else {
+               alert('CALIFICACIÓN ENVIADA CORRECTAMENTE')
+            }
+         })
    } catch (error) {
       alert('ERROR APROBAR');
-      return ;
+      return;
       // OJOFPM
    }
 
@@ -58,30 +58,30 @@ const listarTutorias = async () => {
          CNRODNI: sessionStorage.getItem('gcNroDni'),
          CTOKEN: sessionStorage.getItem('gcToken'),
       })
-      .then(data => {
-         if (data == null) {
-            alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
-            return ;
-            // OJOFPM
-         } else if (data.ERROR) {
-            alert(data.ERROR);
-            return;
-         } else {
-            a_tutoriasPendientes.value = data.data
-         }
-      })
+         .then(data => {
+            if (data == null) {
+               alert('NO SE PUDO CONECTAR CON EL SERVIDOR (2)');
+               return;
+               // OJOFPM
+            } else if (data.ERROR) {
+               alert(data.ERROR);
+               return;
+            } else {
+               a_tutoriasPendientes.value = data.data
+            }
+         })
    } catch (error) {
       alert('OCURRIO UN ERROR MOUNTED');
-      return ;
+      return;
    }
 }
 
 // Función para volver al menu
 const f_volver = () => {
-  router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
+   p_router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
 };
 const f_recortarNombre = (cNombre) => {
-  return cNombre.length > 15 ? cNombre.slice(0, 30) + '...' : cNombre;
+   return cNombre.length > 15 ? cNombre.slice(0, 30) + '...' : cNombre;
 };
 </script>
 <template>
@@ -97,25 +97,20 @@ const f_recortarNombre = (cNombre) => {
          <!-- Tabla de tutorías -->
          <table v-else>
             <thead>
-            <tr>
-               <th class="col-nombre">DOCENTE</th>
-               <th class="col-fecha">FECHA</th>
-               <th class="col-seleccion"></th>
-            </tr>
+               <tr>
+                  <th class="col-nombre">DOCENTE</th>
+                  <th class="col-fecha">FECHA</th>
+                  <th class="col-seleccion"></th>
+               </tr>
             </thead>
             <tbody>
-            <tr v-for="p_tutoria in a_tutoriasPendientes" :key="p_tutoria.CIDTUTO" style="font-size: 11px;">
-               <td>{{ f_recortarNombre(p_tutoria.CNOMDOC) }}</td>
-               <td>{{ p_tutoria.TRESPUE }}</td>
-               <td>
-                  <input
-                  type="radio"
-                  :value="p_tutoria.CIDTUTO"
-                  v-model="pcIdTutoSel"
-                  :name="'tutoriaSelect'"
-                  />
-               </td>
-            </tr>
+               <tr v-for="p_tutoria in a_tutoriasPendientes" :key="p_tutoria.CIDTUTO" style="font-size: 11px;">
+                  <td>{{ f_recortarNombre(p_tutoria.CNOMDOC) }}</td>
+                  <td>{{ p_tutoria.TRESPUE }}</td>
+                  <td>
+                     <input type="radio" :value="p_tutoria.CIDTUTO" v-model="pcIdTutoSel" :name="'tutoriaSelect'" />
+                  </td>
+               </tr>
             </tbody>
          </table>
          <!-- Mostrar opciones de calificación -->
@@ -127,11 +122,7 @@ const f_recortarNombre = (cNombre) => {
             <!-- Opciones de calificación solo si hay tutoría seleccionada -->
             <div v-else class='calificacion-estrellas'>
                <label v-for="i in 5" :key="i">
-                  <input
-                     type="radio"
-                     v-model="pnCalifi"
-                     :value="i"
-                  />
+                  <input type="radio" v-model="pnCalifi" :value="i" />
                   {{ i }}✰
                </label>
             </div>

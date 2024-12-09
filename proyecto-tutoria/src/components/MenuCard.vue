@@ -6,8 +6,8 @@ defineProps(['icon', 'text']);
 
 
 <template>
-  <div class="card">
-    <i class="material-icons">{{ icon }}</i>
-    <p>{{ text }}</p>
-  </div>
+	<div class="card">
+		<i class="material-icons">{{ icon }}</i>
+		<p>{{ text }}</p>
+	</div>
 </template>

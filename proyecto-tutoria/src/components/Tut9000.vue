@@ -4,7 +4,7 @@ import NavBar from './Navbar.vue';
 import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-const router = useRouter();
+const p_router = useRouter();
 
 // Función para salir
 const f_Salir = () => {
@@ -46,7 +46,7 @@ const f_Solicitar = () => {
 
 // Función para volver al menu
 const f_volver = () => {
-   router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
+   p_router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
 };
 </script>
 <template>

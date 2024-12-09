@@ -3,26 +3,26 @@ import { useRouter } from 'vue-router'; // Necesitamos useRouter para navegar
 import MenuCard from './MenuCard.vue'; // Importamos el componente MenuCard
 import Navbar from './Navbar.vue';
 
-const router = useRouter();
+const p_router = useRouter();
 
 // Funciones para redirigir
 const irCalificarTutoria = () => {
-   router.push('/calificar-tutoria'); // Redirige a la opción para calificar tutoría
+   p_router.push('/calificar-tutoria'); // Redirige a la opción para calificar tutoría
 };
 
 const irSolicitarTutoria = () => {
-   router.push('/solicitar-tutoria-opciones'); // Redirige a la opción para solicitar tutoría
+   p_router.push('/solicitar-tutoria-opciones'); // Redirige a la opción para solicitar tutoría
 };
 // Función para volver al menu
 const f_volver = () => {
-  router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
+   p_router.push('/menu'); // Redirige al menú o ajusta según la ruta de regreso
 };
 </script>
 
 <template>
    <div class="elegir-tipo-tutoria">
       <Navbar />
-      
+
       <!-- Sección para elegir la acción de tutoría -->
       <div class="seccion">
          <div class="botones-tutoria">

@@ -11,11 +11,11 @@ const lcSaludo = ref('');
 const lcName = ref(sessionStorage.getItem('gcName') || 'Usuario'); // Obtener el nombre del usuario desde sessionStorage
 
 const cambiarCarrera = (direccion) => {
-   if(laCarreras.value.length > 1){
-     lnIndice.value = (direccion == 'izquierda') ? lnIndice.value -= 1 : lnIndice.value += 1
-     let lcNomUni = laCarreras.value[lnIndice.value]['CNOMUNI']
-     lcarrera.value = (lcNomUni.length > 15) ? lcNomUni.slice(0, 30) + '...' : lcNomUni
-     sessionStorage.setItem('gcCodAlu', laCarreras.value[lnIndice.value]['CCODALU'])
+   if (laCarreras.value.length > 1) {
+      lnIndice.value = (direccion == 'izquierda') ? lnIndice.value -= 1 : lnIndice.value += 1
+      let lcNomUni = laCarreras.value[lnIndice.value]['CNOMUNI']
+      lcarrera.value = (lcNomUni.length > 15) ? lcNomUni.slice(0, 30) + '...' : lcNomUni
+      sessionStorage.setItem('gcCodAlu', laCarreras.value[lnIndice.value]['CCODALU'])
    }
 };
 
@@ -39,15 +39,17 @@ onMounted(() => {
 <template>
    <header class="header">
       <div class="logo">
-        <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo" />
+         <img src="@/assets/imagenes/ucsm-logo.webp" alt="Universidad Católica de Santa María" class="logo" />
       </div>
       <div class="carrera">
-         <button v-if="laCarreras.length > 1 && lnIndice > 0" @click="cambiarCarrera('izquierda')" class="flecha izquierda">←</button>
+         <button v-if="laCarreras.length > 1 && lnIndice > 0" @click="cambiarCarrera('izquierda')"
+            class="flecha izquierda">←</button>
          <p>{{ lcarrera }}</p>
-         <button v-if="laCarreras.length > 1 && lnIndice < laCarreras.length - 1" @click="cambiarCarrera('derecha')" class="flecha derecha">→</button>
+         <button v-if="laCarreras.length > 1 && lnIndice < laCarreras.length - 1" @click="cambiarCarrera('derecha')"
+            class="flecha derecha">→</button>
       </div>
       <div class="saludo">
-        <p>{{ lcSaludo }}, {{ lcName }}</p> <!-- Saludo y nombre del usuario -->
+         <p>{{ lcSaludo }}, {{ lcName }}</p> <!-- Saludo y nombre del usuario -->
       </div>
    </header>
 </template>

@@ -1,23 +1,28 @@
 #app {
   font-weight: normal;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  
+
 }
-*{
+
+* {
   margin: 0px;
 }
+
 .titulo-barra {
   background-color: #fccc04;
   padding: 10px 20px;
 }
+
 .titulo-barra h2 {
   text-transform: uppercase;
   font-weight: bold;
   margin: 0;
   font-size: 20px;
 }
+
 button {
-  margin: 0 10px;
+  margin: 10px;
+  /* Espaciado entre botones */
   padding: 10px 20px;
   color: white;
   border: none;
@@ -27,20 +32,59 @@ button {
   font-size: 14px;
   transition: opacity 0.3s ease, background-color 0.3s ease;
 }
+.botones-tutoria {
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que los elementos se ajusten en filas */
+  gap: 10px;
+  /* Espaciado entre los botones */
+  justify-content: center;
+  /* Centra todos los botones */
+}
+
+button {
+  margin: 10px; /* Espaciado entre botones */
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  width: auto; /* El ancho del botón no ocupa toda la pantalla */
+  min-width: 120px; /* Ancho mínimo para los botones */
+}
 
 button.verde {
   background-color: #4CAF50;
 }
+
 button.verde:hover {
   background-color: #45a049;
 }
+
 button.rojo {
   background-color: red;
+  display: flex; /* Alinea el ícono y texto horizontalmente */
+  align-items: center; /* Centra el ícono verticalmente */
+  padding-right: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  justify-content: center;
 }
 
 button.rojo:hover {
-  background-color: red;
+  background-color: darkred;
 }
+
+.botones {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones se ajusten a nuevas líneas si es necesario */
+  gap: 15px; /* Espaciado entre los botones */
+  justify-content: center; /* Centra los botones */
+}
+
 .icon {
   width: 20px; /* Tamaño del ícono */
   height: auto; /* Mantiene las proporciones */
@@ -48,3 +92,22 @@ button.rojo:hover {
   vertical-align: middle; /* Alinea el ícono con el texto */
 }
 
+@media (max-width: 768px) {
+  .botones {
+    flex-direction: column; /* En pantallas pequeñas, los botones se apilan verticalmente */
+    gap: 10px; /* Reduce el espacio entre botones cuando se apilan */
+    justify-content: center;
+  }
+
+  button {
+    width: auto; /* No ocuparán toda la pantalla */
+    padding: 12px; /* Aumenta el padding para mejor accesibilidad */
+    min-width: 150px; /* Ancho mínimo ajustado para pantallas pequeñas */
+  }
+
+  button.rojo {
+    width: auto; /* Asegura que el botón rojo no ocupe todo el ancho */
+    padding: 12px; /* Ajuste el padding para mayor comodidad */
+    min-width: 150px; /* Asegura que el botón tenga un ancho mínimo en pantallas pequeñas */
+  }
+}
