@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import '@/assets/estilos/CalificarTutoriasGeneral.css';
-import NavBar from '../Navbar.vue';
 import axios from 'axios';
 import { onMounted } from 'vue';
-
+import { useRouter } from 'vue-router';
+const p_router = useRouter();
 const n_calificacion = ref(0); // n_ para numérico
 const p_tutorSeleccionado = ref(null); // p_ para parámetro
 // Inicializa las tutorías con la propiedad calificada
@@ -60,15 +60,15 @@ onMounted( async () => {
 });
 
 // Función para salir
-const f_salir = () => {
-  alert("Has salido del sistema.");
+const f_volver = () => {
+	p_router.push('/menu');
 };
+
 const f_recortarNombre = (cNombre) => {
   return cNombre.length > 15 ? cNombre.slice(0, 15) + '...' : cNombre;
 };
 </script>
 <template>
-   <NavBar />
    <div class="calificar-tutorias-general">
       <div class="titulo-barra">
          <h2>CALIFICAR LA TUTORÍA</h2>
@@ -122,7 +122,11 @@ const f_recortarNombre = (cNombre) => {
          <!-- Botones de acción -->
          <div class="botones">
             <button class="calificar" @click="f_calificarTutoria">Calificar</button>
-            <button class="button-salir" @click="f_salir">Salir</button>
+            <!-- Botón Volver -->
+            <button class="rojo" @click="f_volver">
+               <img class="icon" src="@/assets/imagenes/icon-back.webp" alt="Volver" />
+               Volver
+            </button>
          </div>
       </div>
    </div>
